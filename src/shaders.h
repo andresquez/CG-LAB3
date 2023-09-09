@@ -16,7 +16,7 @@
 // 4: Random 1 (Pelota de tripa de coche)
 // 5: Random 2 (Agua con islas de panqueque y huevo estrellado)
 // 6: Random 3 (Planeta congelado con volcanes rojos)
-int selectedPlanet = 2;
+int selectedPlanet = 3;
 
 Vertex vertexShader(const Vertex& vertex, const Uniforms& uniforms) {
     // Apply transformations to the input vertex using the matrices from the uniforms
