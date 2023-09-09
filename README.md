@@ -7,10 +7,10 @@ Laboratory #4 - Computer Graphics
 ![Planeta Gaseoso](./images/p_gaseoso.png)
 
 ### Planeta Rocoso
-![Planeta Rocoso](./images/p_rocoso.png)
+![Planeta Rocoso](./images/procoso.png)
 
 ### Estrella
-![Estrella](./images/estrella.png)
+![Estrella](./images/p_estrella.png)
 
 ### Planeta Random 1 Pelota de Tripa de Coche
 ![Planeta Random 1](./images/p_random_1.png)
