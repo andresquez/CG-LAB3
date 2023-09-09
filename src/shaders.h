@@ -16,7 +16,7 @@
 // 4: Random 1 (Pelota de tripa de coche)
 // 5: Random 2 (Agua con islas de panqueque y huevo estrellado)
 // 6: Random 3 (Planeta congelado con volcanes rojos)
-int selectedPlanet = 5;
+int selectedPlanet = 2;
 
 Vertex vertexShader(const Vertex& vertex, const Uniforms& uniforms) {
     // Apply transformations to the input vertex using the matrices from the uniforms
@@ -131,7 +131,7 @@ if (selectedPlanet == 2) {
         FastNoiseLite noiseGenerator;
         noiseGenerator.SetNoiseType(FastNoiseLite::NoiseType_OpenSimplex2);
         float noiseScale = 1000.0f; // Ajusta la escala del ruido para los patrones
-        float noiseValue = noiseGenerator.GetNoise(fragment.original.x * noiseScale, fragment.original.y * noiseScale);
+        float noiseValue = noiseGenerator.GetNoise(fragment.original.x * noiseScale, fragment.original.y * noiseScale, fragment.original.z * noiseScale);
 
         // Calcula el color final mezclando el color base con los patrones
         glm::vec3 tmpColor = baseColor;
@@ -158,7 +158,8 @@ if (selectedPlanet == 2) {
         color = Color(tmpColor.x, tmpColor.y, tmpColor.z);
 
         Fragment processedFragment = fragment;
-        processedFragment.color = color;
+
+        processedFragment.color = color * fragment.intensity;
 
         return processedFragment;
     }
@@ -178,7 +179,7 @@ if (selectedPlanet == 3) {
         FastNoiseLite noiseGenerator;
         noiseGenerator.SetNoiseType(FastNoiseLite::NoiseType_OpenSimplex2);
         float noiseScale = 5000.0f; // Ajusta la escala del ruido para los patrones
-        float noiseValue = noiseGenerator.GetNoise(fragment.original.x * noiseScale, fragment.original.y * noiseScale);
+        float noiseValue = noiseGenerator.GetNoise(fragment.original.x * noiseScale, fragment.original.y * noiseScale, fragment.original.z * noiseScale);
 
         // Calcula el color final mezclando el color base con los patrones
         glm::vec3 tmpColor = baseColor;
@@ -206,7 +207,7 @@ if (selectedPlanet == 3) {
         color = Color(tmpColor.x, tmpColor.y, tmpColor.z);
 
         Fragment processedFragment = fragment;
-        processedFragment.color = color;
+        processedFragment.color = color * fragment.intensity;
 
         return processedFragment;
     }
@@ -284,7 +285,11 @@ if (selectedPlanet == 5) {
         glm::vec3 spotColor = glm::vec3(0.8f, 0.66f, 0.2f);       // Color marrón para las manchas
         glm::vec3 shineColor = glm::vec3(1.0f, 1.0f, 1.0f);       // Color blanco para el brillo
 
-        glm::vec2 uv = glm::vec2(fragment.original.x, fragment.original.y);
+        // glm::vec2 uv = glm::vec2(fragment.original.x, fragment.original.y);
+
+        glm::vec3 uv = glm::vec3(fragment.original.x,  fragment.original.y, fragment.original.z);
+
+
 
         FastNoiseLite noiseGenerator;
         noiseGenerator.SetNoiseType(FastNoiseLite::NoiseType_OpenSimplex2);
@@ -298,7 +303,7 @@ if (selectedPlanet == 5) {
         float oy = 3000.0f;
         float zoom = 200.0f;
 
-        float noiseValue = noiseGenerator.GetNoise((uv.x + ox) * zoom, (uv.y + oy) * zoom);
+        float noiseValue = noiseGenerator.GetNoise((uv.x + ox) * zoom, (uv.y + oy) * zoom, (uv.z + oy) * zoom);
 
         glm::vec3 tmpColor = baseColor;
 
